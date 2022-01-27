@@ -1,19 +1,31 @@
-import { Duration, Stack, StackProps } from 'aws-cdk-lib';
-import * as sns from 'aws-cdk-lib/aws-sns';
-import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
-import * as sqs from 'aws-cdk-lib/aws-sqs';
-import { Construct } from 'constructs';
+import { Duration, Stack, StackProps } from "aws-cdk-lib";
+import { LambdaIntegration, RestApi } from "aws-cdk-lib/aws-apigateway";
+import {
+  Code,
+  Function as LambdaFunction,
+  Runtime,
+} from "aws-cdk-lib/aws-lambda";
+import { Construct } from "constructs";
+import { join } from "path";
 
 export class CymotiveBackEndStack extends Stack {
+  api = new RestApi(this, "idsgateway");
+
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'CymotiveBackEndQueue', {
-      visibilityTimeout: Duration.seconds(300)
+    const porterLambda = new LambdaFunction(this, "porter", {
+      runtime: Runtime.NODEJS_14_X,
+      code: Code.fromAsset(join(__dirname, "../services/porter")),
+      handler: "index.handler",
     });
 
-    const topic = new sns.Topic(this, 'CymotiveBackEndTopic');
+    const autoDataResource = this.api.root.addResource("auto-data");
 
-    topic.addSubscription(new subs.SqsSubscription(queue));
+    const postDataIntegration = new LambdaIntegration(porterLambda);
+    autoDataResource.addMethod("POST", postDataIntegration);
+
+    // const queryResource = autoDataResource.addResource("{query}");
+    // queryResource.addMethod("GET", );
   }
 }
