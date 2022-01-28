@@ -11,16 +11,21 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "aws-cdk": "2.9.0",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
+    "aws-cdk": "2.9.0",
+    "esbuild": "^0.14.14",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
   "dependencies": {
+    "@types/aws-lambda": "^8.10.92",
+    "@types/uuid": "^8.3.4",
     "aws-cdk-lib": "2.9.0",
-    "constructs": "^10.0.0"
+    "aws-sdk": "^2.1065.0",
+    "constructs": "^10.0.0",
+    "uuid": "^8.3.2"
   }
 }

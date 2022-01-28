@@ -1,0 +1,49 @@
+@endpoint = https://6o602aldu6.execute-api.eu-west-1.amazonaws.com/prod
+
+POST {{endpoint}}/auto-data
+Content-Type: application/json
+
+{
+    "vehicleId": "e252d2t6-830-5438-88e3-420aff355der",
+    "label": "VW Polo",
+    "modifiedDate": "2075-04-29T03:58:11.803Z",
+    "manufacturerType": "VW",
+    "manufacturerTitle": "Polo",
+    "signalsPerMinute": {
+      "infotainment": {
+        "canId": 11,
+        "busId": 50,
+        "acceptableMinValue": 2,
+        "acceptableMaxValue": 17,
+        "sum": 12
+      },
+      "windows": {
+        "canId": 46,
+        "busId": 12,
+        "acceptableMinValue": 522,
+        "acceptableMaxValue": 578,
+        "sum": 580
+      },
+      "airBag": {
+        "canId": 80,
+        "busId": 6,
+        "acceptableMinValue": 3,
+        "acceptableMaxValue": 8,
+        "sum": 6
+      }
+    }
+  }
+
+###
+
+GET {{endpoint}}/auto-data/numberOfReports
+
+
+###
+
+GET {{endpoint}}/auto-data/numberOfVehicles
+
+###
+
+GET {{endpoint}}/auto-data/numberOfAnomalies
+

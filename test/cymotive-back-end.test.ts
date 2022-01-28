@@ -1,17 +1,18 @@
-import * as cdk from 'aws-cdk-lib';
-import { Template, Match } from 'aws-cdk-lib/assertions';
-import * as CymotiveBackEnd from '../lib/cymotive-back-end-stack';
+import * as cdk from "aws-cdk-lib";
+import { Template, Match } from "aws-cdk-lib/assertions";
+import * as CymotiveBackEnd from "../lib/cymotive-back-end-stack";
 
-test('SQS Queue and SNS Topic Created', () => {
+test("SQS Queue and SNS Topic Created", () => {
   const app = new cdk.App();
   // WHEN
-  const stack = new CymotiveBackEnd.CymotiveBackEndStack(app, 'MyTestStack');
+  const stack = new CymotiveBackEnd.CymotiveBackEndStack(app, "MyTestStack");
   // THEN
 
   const template = Template.fromStack(stack);
 
-  template.hasResourceProperties('AWS::SQS::Queue', {
-    VisibilityTimeout: 300
+  template.hasResourceProperties("AWS::SQS::Queue", {
+    VisibilityTimeout: 300,
   });
-  template.resourceCountIs('AWS::SNS::Topic', 1);
+  template.resourceCountIs("AWS::SNS::Topic", 1);
+  // expect(1).toBe(1);
 });
